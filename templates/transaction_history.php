@@ -47,8 +47,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Date</th>
-                        <th>Amount</th>
-                        <th>Type</th>
+                        <th>Amount</th> 
                     </tr> 
                     <?php 
                         foreach($transaction_history as $transaction) {
@@ -56,8 +55,7 @@
                     <tr>
                         <td><?=$transaction["name"]?></td>
                         <td><?=$transaction["t_date"]?></td>
-                        <td>$<?=$transaction["amount"]?></td>
-                        <td><?=$transaction["type"]?></td>
+                        <td>$<?=$transaction["amount"]?></td> 
                     </tr> 
                     <?php 
                         }
