@@ -85,8 +85,9 @@ class FinanceController {
         */ 
 
         $data = $this->db->query("SELECT SUM(amount) AS balance FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]);   
-        $balance = $data[0]["balance"];
-        $data = $this->db->query("SELECT name, t_date, amount, type FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]); 
+        $balance = 0;
+        if(!empty($data[0]["balance"])) $balance = $data[0]["balance"]; 
+        $data = $this->db->query("SELECT * FROM hw5_transaction WHERE user_id = ? ORDER BY t_date DESC;", "i", $_SESSION["id"]);
         $transaction_history = $data; 
         
         include "templates/transaction_history.php";
