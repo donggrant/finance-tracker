@@ -29,7 +29,7 @@
                 </ul>
             </div>  
              
-            <a class="btn btn-danger" style = "margin-right: 10px;" href="<?=$this->url?>/new_transaction/">New Transaction</a>
+            <a class="btn btn-primary" style = "margin-right: 10px;" href="<?=$this->url?>/new_transaction/">New Transaction</a>
             <a class="btn btn-danger" href="<?=$this->url?>/logout/">Logout</a> 
         </nav>
 
