@@ -1,10 +1,10 @@
 <?php
 
-class FinanceController {
+class TriviaController {
 
     private $db;
     
-    private $url = "/finance-tracker";
+    private $url = "/inclass/trivia4";
     
     public function __construct() {
         $this->db = new Database();
@@ -16,11 +16,8 @@ class FinanceController {
             case "question":
                 $this->question();
                 break;
-            case "transaction_history": 
-                $this->transaction_history(); 
-                break;
             case "logout":
-                $this->destroySession(); 
+                $this->destroySession();
             case "login":
             default:
                 $this->login();
@@ -40,7 +37,7 @@ class FinanceController {
         // our login code from index.php last time!
         $error_msg = "";
         if (isset($_POST["email"])) { /// validate the email coming in
-            $data = $this->db->query("select * from hw5_user where email = ?;", "s", $_POST["email"]);
+            $data = $this->db->query("select * from user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             } else if (!empty($data)) { 
@@ -49,42 +46,29 @@ class FinanceController {
                 if (password_verify($_POST["password"], $data[0]["password"])) {
                     $_SESSION["name"] = $data[0]["name"];
                     $_SESSION["email"] = $data[0]["email"];
-                    $_SESSION["id"] = $data[0]["id"];
-                    header("Location: {$this->url}/transaction_history/");
+                    $_SESSION["score"] = $data[0]["score"];
+                    header("Location: {$this->url}/question/");
                     return;
                 } else {
                     $error_msg = "Invalid Password";
                 }
             } else {
                 $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
-                $insert = $this->db->query("insert into hw5_user (name, email, password) values (?, ?, ?);", "sss", $_POST["name"], $_POST["email"], $hash);
+                $insert = $this->db->query("insert into user (name, email, password) values (?, ?, ?);", "sss", $_POST["name"], $_POST["email"], $hash);
                 if ($insert === false) {
                     $error_msg = "Error creating new user";
                 } 
                 
-                $_SESSION["name"] = $data[0]["name"];
-                $_SESSION["email"] = $data[0]["email"];
-                $_SESSION["id"] = $data[0]["id"];
-                header("Location: {$this->url}/transaction_history/");
+                $_SESSION["name"] = $_POST["name"];
+                $_SESSION["email"] = $_POST["email"];
+                $_SESSION["score"] = 0;
+                header("Location: {$this->url}/question/");
                 return;
             }
+
         }
+
         include "templates/login.php";
-    }
-
-    public function transaction_history() {
-        /* No session
-        if(!isset($_SESSION["user_id"])) {
-            header("Location: {$this->url}/login.php");
-        }
-        */ 
-
-        $data = $this->db->query("SELECT SUM(amount) AS BALANCE FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]);   
-        $balance = $data[0]["balance"];
-        $data = $this->db->query("SELECT name, t_date, amount, type FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]); 
-        $transaction_history = $data; 
-        
-        include "templates/transaction_history.php";
     }
     
     
