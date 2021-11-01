@@ -19,8 +19,11 @@ class FinanceController {
             case "new_transaction":
                 $this->new_transaction();
                 break;
+            case "transaction_history": 
+                $this->transaction_history(); 
+                break;
             case "logout":
-                $this->destroySession();
+                $this->destroySession(); 
             case "login":
             default:
                 $this->login();
@@ -50,7 +53,7 @@ class FinanceController {
                     $_SESSION["name"] = $data[0]["name"];
                     $_SESSION["email"] = $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
-                    header("Location: {$this->url}/new_transaction/");
+                    header("Location: {$this->url}/transaction_history/");
                     return;
                 } else {
                     $error_msg = "Invalid Password";
@@ -67,13 +70,26 @@ class FinanceController {
                 $_SESSION["name"] = $_POST["name"];
                 $_SESSION["email"] = $_POST["email"];
                 $_SESSION["id"] = $data[0]["id"];
-                header("Location: {$this->url}/new_transaction/");
+                header("Location: {$this->url}/transaction_history/");
                 return;
             }
-
         }
-
         include "templates/login.php";
+    }
+
+    public function transaction_history() {
+        /* No session
+        if(!isset($_SESSION["user_id"])) {
+            header("Location: {$this->url}/login.php");
+        }
+        */ 
+
+        $data = $this->db->query("SELECT SUM(amount) AS BALANCE FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]);   
+        $balance = $data[0]["balance"];
+        $data = $this->db->query("SELECT name, t_date, amount, type FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]); 
+        $transaction_history = $data; 
+        
+        include "templates/transaction_history.php";
     }
 
     public function transaction_history() {
