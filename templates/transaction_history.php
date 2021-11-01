@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-light bg-light" style="margin: 0px 10px 0px 10px;"> 
             <a class="navbar-brand" href="">FinTrek</a>
 
             <div class="navbar-collapse" >
@@ -29,9 +29,8 @@
                 </ul>
             </div>  
              
-            <a class="nav-link" href="<?=$this->url?>/new_transaction/">New Transaction</a>
-
-            <a class="nav-link" href="<?=$this->url?>/logout/">Logout</a> 
+            <a class="btn btn-danger" style = "margin-right: 10px;" href="<?=$this->url?>/new_transaction/">New Transaction</a>
+            <a class="btn btn-danger" href="<?=$this->url?>/logout/">Logout</a> 
         </nav>
 
         <div class="container" style="margin-top: 15px;">
