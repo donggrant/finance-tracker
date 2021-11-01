@@ -33,7 +33,7 @@
                         <input type="date" name="date" value=""/>
                         <br><br>
                         <p>Amount:</p>
-                        <input type="number" name="amount" value=0/>
+                        <input type="number" name="amount" value="0"/>
                         <br><br>
                         <p>Type:</p>
                         <select name="type">
