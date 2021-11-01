@@ -15,8 +15,7 @@ $userid = 1;
 $name = "Macbook Pro M1 Max";
 $date = "2021-10-31"; // Halloween - notice the date format we need!
 $amount = "1999.99";
-$type = "credit";
-$insert = $db->query("insert into hw5_transaction (user_id, name, t_date, amount, type) values (?, ?, ?, ?, ?);", "issss", $userid, $name, $date, $amount, $type);
+$insert = $db->query("insert into hw5_transaction (user_id, name, t_date, amount) values (?, ?, ?, ?);", "isss", $userid, $name, $date, $amount);
 
 // Example 2: Return the transaction list for a particular user in descending order
 $userid = 1;

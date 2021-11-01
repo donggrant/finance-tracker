@@ -24,7 +24,6 @@ $db->query("create table hw5_transaction (
     name text not null,
     t_date date not null, -- date is a reserved word
     amount decimal(10,2) not null, -- two decimal places
-    type text not null,
     primary key (id)
 );");
 

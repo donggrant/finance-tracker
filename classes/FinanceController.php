@@ -85,7 +85,11 @@ class FinanceController {
         */ 
 
         $data = $this->db->query("SELECT SUM(amount) AS balance FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]);   
-        $balance = $data[0]["balance"];
+        if(empty($data[0]["balance"])){
+            $balance = 0;
+        } else {
+            $balance = $data[0]["balance"];
+        }
         $data = $this->db->query("SELECT name, t_date, amount, type FROM hw5_transaction WHERE user_id = ?", "i", $_SESSION["id"]); 
         $transaction_history = $data; 
         
@@ -95,7 +99,11 @@ class FinanceController {
     
     public function new_transaction() {
         if(isset($_POST["name"])){
-            $insert = $this->db->query("insert into hw5_transaction (user_id, name, t_date, amount, type) values (?, ?, ?, ?, ?);", "issss", $_SESSION["id"], $_POST["name"], $_POST["date"], $_POST["amount"], $_POST["type"]);
+            if($_POST["type"] == "debit"){
+                $insert = $this->db->query("insert into hw5_transaction (user_id, name, t_date, amount, type) values (?, ?, ?, ?, ?);", "issss", $_SESSION["id"], $_POST["name"], $_POST["date"], -1*$_POST["amount"], $_POST["type"]);
+            } else {
+                $insert = $this->db->query("insert into hw5_transaction (user_id, name, t_date, amount, type) values (?, ?, ?, ?, ?);", "issss", $_SESSION["id"], $_POST["name"], $_POST["date"], $_POST["amount"], $_POST["type"]);
+            }
             header("Location: {$this->url}/transaction_history/");
             return;
         }
