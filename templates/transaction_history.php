@@ -15,31 +15,29 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="">FinTrek</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse" >
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <?=$_SESSION["name"]?>
-                </li>
-                <li class="nav-item">
-                    <?=$_SESSION["email"]?>
-                </li> 
+                    <div> 
+                        <li class="nav-item">
+                            <?=$_SESSION["name"]?>
+                        </li> 
+                        <li class="nav-item">
+                            <?=$_SESSION["email"]?>
+                        </li> 
+                    </div> 
                 </ul>
             </div>  
-
+             
             <a class="nav-link" href="<?=$this->url?>/new_transaction/">New Transaction</a>
 
-            <a class="nav-link" href="<?=$this->url?>/logout/">Logout</a>
+            <a class="nav-link" href="<?=$this->url?>/logout/">Logout</a> 
         </nav>
 
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
                 <h1>Transaction History</h1>
-                <h3>Hello <?=$_SESSION["name"]?>!</h3>
-                <h4>Balance: $<?=$balance?></h4>
+                <h3>Balance: $<?=$balance?></h3>
             </div>
             <br>
             <div class="row">
